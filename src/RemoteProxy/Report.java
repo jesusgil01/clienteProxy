@@ -33,8 +33,6 @@ public class Report extends javax.swing.JFrame {
     public void userRol(String userRole){
         this.rol = userRole;
     }
-    
-    
     private void fillCombobox() {        
                 
         try {            
@@ -64,6 +62,7 @@ public class Report extends javax.swing.JFrame {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        btnRegistrarTienda = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +107,14 @@ public class Report extends javax.swing.JFrame {
             }
         });
 
+        btnRegistrarTienda.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        btnRegistrarTienda.setText("Registrar Tienda");
+        btnRegistrarTienda.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarTiendaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -126,6 +133,8 @@ public class Report extends javax.swing.JFrame {
                         .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton3)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRegistrarTienda)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
@@ -144,7 +153,8 @@ public class Report extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(btnRegistrarTienda))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
@@ -154,8 +164,8 @@ public class Report extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
          this.dispose();
-        LoginFrame lf = new LoginFrame();
-        lf.setVisible(true);
+        Login l = new Login();
+        l.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -179,9 +189,13 @@ public class Report extends javax.swing.JFrame {
         }   
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    
+    
+    
+        
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if (rol.compareTo("G") == 0) {
+        if (rol.compareTo("Gerente") == 0) {
             Register r = new Register(reportGenerator);
             r.setVisible(true);
         } else {
@@ -190,9 +204,18 @@ public class Report extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnRegistrarTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTiendaActionPerformed
+        // TODO add your handling code here:
+        if (rol.compareTo("Gerente") == 0) {
+            RegisterTienda rt = new RegisterTienda(reportGenerator);
+            rt.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Usted no cuenta con los permisos necesarios "
+                    + "para registrar un usuario");
+        }
+    }//GEN-LAST:event_btnRegistrarTiendaActionPerformed
+
+         
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -226,6 +249,7 @@ public class Report extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegistrarTienda;
     private javax.swing.JComboBox<String> cbxSucursal;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;

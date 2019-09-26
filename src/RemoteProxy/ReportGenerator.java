@@ -16,4 +16,6 @@ public interface ReportGenerator extends Remote{
 
     public boolean addUser(String name, String apellidos, String fecha, char genero, String Curp, String Rfc, char estado_civil, String telefono, String email, char rol, String usuario, String contra, double salario, String direccion) throws RemoteException;
 
+    public boolean addTienda(String nombre, String direccion, String telefono, int encargado) throws RemoteException;
+
 }
