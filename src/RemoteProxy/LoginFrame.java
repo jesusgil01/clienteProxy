@@ -109,7 +109,7 @@ public class LoginFrame extends javax.swing.JFrame {
 
         try {
             Registry registry = LocateRegistry.getRegistry("10.10.157.204", 3458);
-            ReportGenerator reportGenerator = (ReportGenerator) registry.lookup("PizzaCoRemoteGenerator");
+            ReportGenerator reportGenerator = (ReportGenerator) registry.lookup("ServidorProxy");
             if (reportGenerator.login(usuario, contra, rol)) {
                 JOptionPane.showMessageDialog(null, "Bienvenido " + usuario + "!");
                 this.dispose();

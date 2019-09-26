@@ -112,22 +112,22 @@ public class RegisterForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String user = txtUser.getText();
-        String pass = txtPass.getText();
-        String rol = cbRole.getSelectedItem().toString();
-
-        try {
-            if (reportGenerator.addUser(user, pass, rol)) {
-                JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
-                this.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "El usuario ya existe");
-                txtUser.setText("");
-                txtPass.setText("");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        String user = txtUser.getText();
+//        String pass = txtPass.getText();
+//        String rol = cbRole.getSelectedItem().toString();
+//
+//        try {
+//            if (reportGenerator.addUser(user, pass, rol)) {
+//                JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
+//                this.dispose();
+//            } else {
+//                JOptionPane.showMessageDialog(null, "El usuario ya existe");
+//                txtUser.setText("");
+//                txtPass.setText("");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
 

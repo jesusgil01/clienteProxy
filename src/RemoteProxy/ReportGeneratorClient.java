@@ -13,7 +13,7 @@ public class ReportGeneratorClient {
 		try {
                         
                         Registry registry = LocateRegistry.getRegistry("localhost", 9000);
-			ReportGenerator reportGenerator = (ReportGenerator)registry.lookup("PizzaCoRemoteGenerator");
+			ReportGenerator reportGenerator = (ReportGenerator)registry.lookup("ServidorProxy");
 			//System.out.println(reportGenerator.generateDailyReport());
 		} catch (Exception e) {
 			e.printStackTrace();
