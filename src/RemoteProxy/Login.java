@@ -6,8 +6,11 @@
 package RemoteProxy;
 
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.awt.Image;
 import java.net.URL;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
@@ -26,12 +29,10 @@ public class Login extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         rsscalelabel.RSScaleLabel.setScaleLabel(jLabel1, "src/img/hombre.png");
         rsscalelabel.RSScaleLabel.setScaleLabel(jLabel2, "src/img/fondoPizza.jpg");
-        
+
         //rsscalelabel.RSScaleLabel.setScaleLabel(btnIngresar, "src/img/entrar.png");
         //btnIngresar.setForeground(Color.GREEN);
-        
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -124,7 +125,7 @@ public class Login extends javax.swing.JFrame {
 
         cbxRol.setFont(new java.awt.Font("Arial Rounded MT Bold", 0, 14)); // NOI18N
         cbxRol.setForeground(new java.awt.Color(102, 102, 102));
-        cbxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gerente", "Empleado" }));
+        cbxRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Empleado", "Encargado" }));
         JIngreso.add(cbxRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(94, 428, 171, -1));
 
         getContentPane().add(JIngreso, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 360, 600));
@@ -148,26 +149,32 @@ public class Login extends javax.swing.JFrame {
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
         // TODO add your handling code here:
-        
+
         String usuario = txtUsuario.getText();
         String contra = new String(pass.getPassword());
         String rol = cbxRol.getSelectedItem().toString();
-        //System.out.println(contra);
-        try {
-            Registry registry = LocateRegistry.getRegistry("10.10.169.35", 3458);
-            ReportGenerator reportGenerator = (ReportGenerator) registry.lookup("PizzaCoRemoteGenerator");
-            if (reportGenerator.login(usuario, contra, rol)) {
-                JOptionPane.showMessageDialog(null, "Bienvenido " + usuario + "!");
-                this.dispose();
-                Report r = new Report(reportGenerator);
-                r.userRol(rol);
-                r.setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Información incorrecta");
+        if (usuario.isEmpty() || contra.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Usuario y/o contraseña vacios!");
+        } else {
+            try {
+                Registry registry = LocateRegistry.getRegistry("localhost", 3458);
+                ReportGenerator reportGenerator = (ReportGenerator) registry.lookup("ServidorProxy");
+                if (reportGenerator.login(usuario, contra, rol)) {
+                    JOptionPane.showMessageDialog(null, "Bienvenido " + usuario + "!");
+                    this.dispose();
+                    Report r = new Report(reportGenerator);
+                    r.userRol(rol);
+                    r.setVisible(true);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Información incorrecta");
+                }
+            } catch (HeadlessException | NotBoundException | RemoteException e) {
+                e.printStackTrace();
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+
+        //System.out.println(contra);
+
     }//GEN-LAST:event_btnIngresarActionPerformed
 
     /**
@@ -196,13 +203,12 @@ public class Login extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
-        
+
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Login().setVisible(true);
-                
-                
+
             }
         });
     }

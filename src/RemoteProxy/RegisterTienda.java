@@ -125,8 +125,9 @@ public class RegisterTienda extends javax.swing.JFrame {
 
     private void btnRegistrarTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTiendaActionPerformed
         int id_encargado = Integer.parseInt(txtEncargado.getText());
+        double ventas = Double.parseDouble(txtVentas.getText());
         try {
-            if (reportGenerator.addTienda(txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(), id_encargado)) {
+            if (reportGenerator.insertTienda(txtNombre.getText(), txtDireccion.getText(), txtTelefono.getText(), txtEncargado.getText(), txtVentas.getText())) {
                 this.dispose();
             } else {
 

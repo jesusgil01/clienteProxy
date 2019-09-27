@@ -6,6 +6,7 @@
 package RemoteProxy;
 
 //import static RemoteProxy.RegisterForm.reportGenerator;
+import Validator.NewUserInfo;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -25,6 +26,9 @@ public class Register extends javax.swing.JFrame {
         rsscalelabel.RSScaleLabel.setScaleLabel(lfondo, "src/img/pizzasReal.jpg");
         
     }
+    
+    
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -212,15 +216,28 @@ public class Register extends javax.swing.JFrame {
 
     private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
         // TODO add your handling code here:
-        double salario = Double.parseDouble(txtSalario.getText());
-        String genero = cbxGenero.getSelectedItem().toString();
-        String estado_civil = cbxEstado_Civil.getSelectedItem().toString();
-        String rol = cbxRol.getSelectedItem().toString();
-        String contra = new String(txtContra.getPassword());
+        NewUserInfo user = new NewUserInfo();
+        user.setApellido(txtApellidos.getText());
+//        user.setCurp(txtCurp.getText());
+//        user.setDireccion(txtDireccion.getText());
+//        user.setEmail(txtEmail.getText());
+//        user.setEstadocivil(cbxEstado_Civil.getSelectedItem().toString());
+//        user.setFechanaci(txtFecha.getText());
+//        user.setGenero(cbxGenero.getSelectedItem().toString());
+//        user.setId_tienda();
+        user.setNombre(txtNombre.getText());
+        user.setPassword(txtContra.getPassword().toString());
+//        user.setRfc(txtRfc.getText());
+        user.setRol(cbxRol.getSelectedItem().toString());
+//        user.setSalario(Double.parseDouble(txtSalario.getText()));
+//        user.setTelefono(txtTelefono.getText());
+        user.setUsername(txtUsuario.getText());
+        
+
            
         try {
             //Implementa el validator villa bb buapo
-            if (reportGenerator.addUser(txtNombre.getText(), txtApellidos.getText() , txtFecha.getText(), genero, txtCurp.getText(), txtRfc.getText(), estado_civil, txtTelefono.getText(), txtEmail.getText(), rol, txtUsuario.getText(), contra, salario, txtDireccion.getText())) {
+            if (reportGenerator.insertUsuario(user)) {
                 JOptionPane.showMessageDialog(null, "Usuario registrado exitosamente");
                 this.dispose();
             } else {

@@ -6,7 +6,10 @@
 package RemoteProxy;
 
 //import static RemoteProxy.ReportFrame.reportGenerator;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -229,6 +232,11 @@ public class Report extends javax.swing.JFrame {
         btnConsultarVentas.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         btnConsultarVentas.setForeground(new java.awt.Color(102, 102, 102));
         btnConsultarVentas.setText("Consultar Ventas");
+        btnConsultarVentas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarVentasActionPerformed(evt);
+            }
+        });
         jPanel11.add(btnConsultarVentas, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
 
         jPanel1.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 160, 300, 90));
@@ -246,6 +254,11 @@ public class Report extends javax.swing.JFrame {
         btnConsultarTiendas.setFont(new java.awt.Font("Lucida Sans Unicode", 0, 14)); // NOI18N
         btnConsultarTiendas.setForeground(new java.awt.Color(102, 102, 102));
         btnConsultarTiendas.setText("Consultar Tiendas");
+        btnConsultarTiendas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultarTiendasActionPerformed(evt);
+            }
+        });
         jPanel12.add(btnConsultarTiendas, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 40, -1, -1));
 
         jPanel1.add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 300, 140));
@@ -286,7 +299,7 @@ public class Report extends javax.swing.JFrame {
         
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        if (rol.compareTo("Gerente") == 0) {
+        if (rol.compareTo("Encargado") == 0) {
             Register r = new Register(reportGenerator);
             r.setVisible(true);
         } else {
@@ -297,7 +310,7 @@ public class Report extends javax.swing.JFrame {
 
     private void btnRegistrarTiendaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTiendaActionPerformed
         // TODO add your handling code here:
-        if (rol.compareTo("Gerente") == 0) {
+        if (rol.compareTo("Encargado") == 0) {
             RegisterTienda rt = new RegisterTienda(reportGenerator);
             rt.setVisible(true);
         } else {
@@ -311,12 +324,36 @@ public class Report extends javax.swing.JFrame {
     }//GEN-LAST:event_txtSucursalActionPerformed
 
     private void btnConsultarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarUsuariosActionPerformed
-        // TODO add your handling code here:
+        try {
+            jTable1.setModel(reportGenerator.usuariosTotales());
+        } catch (RemoteException ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnConsultarUsuariosActionPerformed
 
     private void btnConsultarUSActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarUSActionPerformed
-        
+        try {
+            jTable1.setModel(reportGenerator.usuariosSucursal(txtSucursal.getText()));
+        } catch (RemoteException ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnConsultarUSActionPerformed
+
+    private void btnConsultarTiendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarTiendasActionPerformed
+        try {
+            jTable1.setModel(reportGenerator.consultaTiendas());
+        } catch (RemoteException ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnConsultarTiendasActionPerformed
+
+    private void btnConsultarVentasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarVentasActionPerformed
+        try {
+            jTable1.setModel(reportGenerator.ventasTodasSucursales());
+        } catch (RemoteException ex) {
+            Logger.getLogger(Report.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnConsultarVentasActionPerformed
 
          
     public static void main(String args[]) {
