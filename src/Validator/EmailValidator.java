@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Validator;
 
 import java.util.ArrayList;
@@ -17,16 +13,15 @@ public class EmailValidator implements Validator<NewUserInfo> {
         List<String> errors = new ArrayList<>();
         String email = info.getEmail();
         for (int j = 0; j < email.length(); j++) {
-            if (email.charAt(i) == '@') {
+            if (email.charAt(j) == '@') {                
                 i++;
             }
+
         }
-        if (i != 1) {
+        if (i != 1 || !(email.contains(".com"))) {
             errors.add("El email no es válido");
         }
 
         return errors;
     }
-
-
 }
